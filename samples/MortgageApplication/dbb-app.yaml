@@ -1,0 +1,37 @@
+---
+#
+# Licensed materials - Property of IBM
+# 5655-AC5 Copyright IBM Corp. 2024
+# All rights reserved
+# US Government users restricted rights  -  Use, duplication or
+# disclosure restricted by GSA ADP schedule contract with IBM Corp.
+#
+application:
+  name: MortgageApplication
+  tasks:
+    - task: Cobol
+      variables:
+        # dependency search path
+        - name: dependencySearchPath
+          value: search:${WORKSPACE}/?path=${APP_DIR_NAME}/copybook/*.cpy
+          
+        # Need to build sub-module epsnbrvl.cbl first during cobol builds
+        - name: fileBuildRank
+          value: 1
+          forFiles: "**/cobol/epsnbrvl.cbl"
+
+        # Skip creating a load module for these programs as they will be 
+        # statically linked to other programs
+        - name: skipLinkEdit
+          value: true
+          forFiles: 
+            - "**/cobol/epsnbrvl.cbl"
+            - "**/cobol/epsmlist.cbl"    
+
+    - task: LinkEdit
+      variables: 
+        # Set flag for link cards with CICS load modules
+        - name: hasCICSModules
+          value: true
+          forFiles:
+            - "**/link/epsmlist.lnk"               

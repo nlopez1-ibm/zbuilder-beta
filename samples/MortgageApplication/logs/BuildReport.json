@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "id": "DBB API Version",
+      "type": "VERSION",
+      "version": "2.0.3",
+      "build": "3573",
+      "date": "23-Jul-2024 10:20:25"
+    },
+    {
+      "id": "DBB Build Mode",
+      "type": "BUILD_MODE",
+      "build-mode": "NORMAL"
+    }
+  ]
+}
